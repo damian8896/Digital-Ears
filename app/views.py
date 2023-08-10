@@ -33,8 +33,6 @@ def index(request):
     # Perform pitch detection
     reference_pitches, _ = librosa.piptrack(y=reference_audio, sr=reference_sr)
     input_pitches, _ = librosa.piptrack(y=input_audio, sr=input_sr)
-
-    # Calculate the similarity using Dynamic Time Warping (DTW)
     reference_pitches_flat = reference_pitches.flatten()
     input_pitches_flat = input_pitches.flatten()
 
