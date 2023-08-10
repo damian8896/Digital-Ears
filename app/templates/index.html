@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+{% load static %}
+
+<!--Home page-->
+
+<html>
+
+<head>
+    <title>Digital Ears</title>
+    <link rel="shortcut icon" type="image/icon" href="{% static 'favicon.png' %}"/>
+    <meta name="description"
+        content="Analyze your piano playing">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Digital Ears | Analyze your piano playing">
+    <meta property="og:title" content="Digital Ears | Analyze your piano playing">
+
+    <!-- Favicon -->
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
+    rel="stylesheet">
+    <!-- CSS -->
+    <link href="{% static 'styles.css' %}" rel="stylesheet" type="text/css">
+    <style>
+        body,
+        input,
+        select,
+        textarea {
+            font-family: 'Poppins';
+            font-weight: 400;
+        }
+
+        button {
+            font-family: 'Poppins';
+            font-weight: 700;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins'
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="main-flex">
+            <div class="left">
+                <h1 class="header">Digital</h1>
+            </div>
+            <div class="right">
+                <h1 class="header right">Ears</h1>
+            </div>
+            <h3 class="side-note">Your ears to analyze your piano playing</h3>
+        </div>
+        <div class="flex">
+            <h2 class="text-left">
+                Analyze your piano playing accuracy now
+            </h2>
+            <h2 class="text-right">
+                Providing you with stats on pitch & tempo
+            </h2>
+        </div>
+
+        <div class="flex center">
+            <form id="form" class="form" method="post" enctype="multipart/form-data" action="#form">
+                {% csrf_token %}
+
+                <h3 class="form-header">Upload Files (mp3)</h3>
+
+                <div class="files">
+                    <div class="fileleft">
+                        <label class="label">
+                            <input id="file1" type="file" value="Browse" name="file1" accept=".mp3,audio/*" style="display: none;" required/>
+                            <span>Input Song</span>
+                        </label>
+                            <span class="selectedfile" id="selected_file1">No file selected</span>
+                    </div>
+                    <div class="fileright">
+                        <label class="label">
+                            <input id="file2" type="file" value="Browse" name="file2" accept=".mp3,audio/*" style="display: none;" required/>
+                            <span>Reference Song</span>
+                        </label>
+                        <span class="selectedfile" id="selected_file2">No file selected</span>
+                    </div>
+                </div>
+               <input class="submitbutton" type="submit" value="Upload" />
+           </form>
+
+            {% if similarity %}
+                <p class="percentage">Accuracy: {{ similarity }}% </p>
+            {% endif %}
+        </div>
+    </div>
+
+    
+
+    <!-- Javascript -->
+    <script language="JavaScript" type="text/javascript" src="{% static 'jquery-3.6.0.min.js' %}"></script>
+    <script>
+        $('#file1').change(function() {
+            $('#selected_file1').text($('#file1')[0].files[0].name);
+        });
+        $('#file2').change(function() {
+            $('#selected_file2').text($('#file2')[0].files[0].name);
+        });
+    </script>
+    
+
+    <script type="text/javascript" src="{% static 'scripts.js' %}"></script>
+    <script src="https://google.com/recaptcha/api.js" async defer></script>
+
+</body>
+
+</html>
